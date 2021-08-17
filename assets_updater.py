@@ -1,7 +1,7 @@
 """
  - Author: DiheChen
  - Date: 2021-08-14 23:42:42
- - LastEditTime: 2021-08-15 05:10:15
+ - LastEditTime: 2021-08-18 01:57:50
  - LastEditors: DiheChen
  - Description: None
  - GitHub: https://github.com/Chendihe4975
@@ -64,11 +64,7 @@ class ArcaeaAssetsUpdater:
                 zip_file.extract(f, ArcaeaAssetsUpdater.work_path)
         return True
 
-
-async def download_file_and_extract():
-    if await ArcaeaAssetsUpdater.download_file(force_download=True):
-        await ArcaeaAssetsUpdater.unzip_file()
-
-
-if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(download_file_and_extract())
+    @staticmethod
+    async def force_update():
+        if await ArcaeaAssetsUpdater.download_file(force_download=True):
+            await ArcaeaAssetsUpdater.unzip_file()
