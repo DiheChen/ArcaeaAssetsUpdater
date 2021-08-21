@@ -1,12 +1,11 @@
 """
  - Author: DiheChen
  - Date: 2021-08-14 23:42:42
- - LastEditTime: 2021-08-18 01:57:50
+ - LastEditTime: 2021-08-21 00:04:28
  - LastEditors: DiheChen
  - Description: None
  - GitHub: https://github.com/Chendihe4975
 """
-import asyncio
 from os import path
 from sys import platform
 from zipfile import ZipFile
@@ -17,6 +16,7 @@ from aiohttp import ClientSession
 from config import Config
 
 if platform == "win32":
+    import asyncio
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 

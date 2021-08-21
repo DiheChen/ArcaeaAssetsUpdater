@@ -1,7 +1,7 @@
 """
  - Author: DiheChen
  - Date: 2021-08-15 00:13:33
- - LastEditTime: 2021-08-18 02:17:58
+ - LastEditTime: 2021-08-21 00:09:45
  - LastEditors: DiheChen
  - Description: None
  - GitHub: https://github.com/Chendihe4975
@@ -18,6 +18,8 @@ from assets_updater import ArcaeaAssetsUpdater
 app = FastAPI()
 songs_dir = path.abspath(
     path.join(path.dirname(__file__), "data", "assets", "songs"))
+char_dir = path.abspath(
+    path.join(path.dirname(__file__), "data", "assets", "char"))
 
 
 @app.get("/assets/songs/{song_id}/{file_name}")
@@ -40,14 +42,15 @@ async def _():
                         path.join("assets", "songs", song.replace("dl_", ""), "3.jpg"))))
     return song_dict
 
+@app.get("/assets/char/{image_name}")
+async def _(image_name: str):
+    return FileResponse(path.join(songs_dir, char_dir, image_name))
+
 
 @app.post("/api/force_update")
 async def _(request: Request, background_tasks: BackgroundTasks):
-    if "Authorization" in request.headers:
-        if request.headers["Authorization"] == Config.token:
-            background_tasks.add_task(ArcaeaAssetsUpdater.force_update)
-            return {"message": "Succeeded."}
-        else:
-            return {"message": "Access denied."}
+    if "Authorization" in request.headers and request.headers["Authorization"] == Config.token:
+        background_tasks.add_task(ArcaeaAssetsUpdater.force_update)
+        return {"message": "Succeeded."}
     else:
         return {"message": "Access denied."}
