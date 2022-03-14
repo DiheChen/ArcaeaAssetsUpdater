@@ -8,7 +8,7 @@ poetry install
 
 poetry run python ArcaeaAssetsUpdater
 
-curl -X POST -H "Authorization: 616.sb" http://127.0.0.1/api/force_update
+curl -X POST -H "Authorization: 616.sb" http://127.0.0.1:17777/api/force_update
 ```
 
 ## To Someone :
