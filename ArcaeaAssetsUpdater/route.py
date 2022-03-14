@@ -33,7 +33,7 @@ async def _(song_id: str, file_name: str):
 
 @app.get("/api/version")
 async def _(request: Request):
-    with open(path.join(path.dirname(__file__), "data", f"version.json"), "r") as file:
+    with open(path.join(path.dirname(__file__), "data", "version.json"), "r") as file:
         return json.loads(file.read())
 
 
@@ -63,3 +63,9 @@ async def _(request: Request, background_tasks: BackgroundTasks):
         return {"message": "Succeeded."}
     else:
         return {"message": "Access denied."}
+
+
+@app.get("/api/unzip")
+async def _(background_tasks: BackgroundTasks):
+    background_tasks.add_task(ArcaeaAssetsUpdater.unzip_file)
+    return {"message": "Succeeded."}
