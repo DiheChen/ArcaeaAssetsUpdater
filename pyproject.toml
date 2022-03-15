@@ -12,7 +12,7 @@ fastapi = "^0.68.0"
 APScheduler = "^3.7.0"
 ujson = "^4.0.2"
 aiohttp = "^3.7.4"
-aiofiles = "^0.7.0"
+aiofile = "^3.7.4"
 
 [tool.poetry.dev-dependencies]
 
