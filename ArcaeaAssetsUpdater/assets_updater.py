@@ -9,10 +9,9 @@
 from os import path
 from sys import platform
 from zipfile import ZipFile
-
 import ujson as json
 from aiohttp import ClientSession
-
+from aiofile import async_open
 from config import Config
 
 if platform == "win32":
@@ -49,9 +48,13 @@ class ArcaeaAssetsUpdater:
                         return False
                     ArcaeaAssetsUpdater.mark_version_info(j)
                     async with session.get(j["value"]["url"], proxy=Config.proxy, verify_ssl=False) as resp:
-                        with open(path.join(ArcaeaAssetsUpdater.work_path, f"arcaea_{j['value']['version']}.apk"),
-                                  'wb') as res:
-                            res.write(await resp.read())
+                        async with async_open(path.join(ArcaeaAssetsUpdater.work_path, f"arcaea_{j['value']['version']}.apk"), 'wb') as res:
+                            while True:
+                                chunk = await resp.content.read(1024*1024*8)
+                                if chunk:
+                                    await res.write(chunk)
+                                else:
+                                    break
                         return True
 
     @staticmethod
