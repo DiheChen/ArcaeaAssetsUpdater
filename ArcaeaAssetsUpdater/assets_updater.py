@@ -47,7 +47,7 @@ class ArcaeaAssetsUpdater:
                     if not force_download and j["value"]["version"] == ArcaeaAssetsUpdater.get_local_version_info():
                         return False
                     ArcaeaAssetsUpdater.mark_version_info(j)
-                    async with session.get(j["value"]["url"], proxy=Config.proxy, verify_ssl=False) as resp:
+                    async with session.get(j["value"]["url"], proxy=Config.proxy, verify_ssl=False, timeout=None) as resp:
                         async with async_open(path.join(ArcaeaAssetsUpdater.work_path, f"arcaea_{j['value']['version']}.apk"), 'wb') as res:
                             while True:
                                 chunk = await resp.content.read(1024*1024*8)
