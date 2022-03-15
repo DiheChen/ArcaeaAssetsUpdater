@@ -21,7 +21,7 @@ if platform == "win32":
 
 class ArcaeaAssetsUpdater:
     work_path = path.abspath(path.join(path.dirname(__file__), "data"))
-    version_info = path.join(work_path, f"version.json")
+    version_info = path.join(work_path, "version.json")
 
     def __init__(self) -> None:
         pass
