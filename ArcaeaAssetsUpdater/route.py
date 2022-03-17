@@ -51,6 +51,15 @@ async def _(request: Request):
     return song_dict
 
 
+@app.get("/api/char_list")
+async def _(request: Request):
+    char_list = dict()
+    for char in listdir(char_dir):
+        char_list[char] = urljoin(str(request.base_url), pathname2url(
+                        path.join("assets", "char", char)))
+    return char_list
+
+
 @app.get("/assets/char/{image_name}")
 async def _(image_name: str):
     return FileResponse(path.join(songs_dir, char_dir, image_name))
