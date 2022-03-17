@@ -74,7 +74,7 @@ async def _(request: Request, background_tasks: BackgroundTasks):
         return {"message": "Access denied."}
 
 
-@app.get("/api/unzip")
+@app.post("/api/unzip")
 async def _(request: Request, background_tasks: BackgroundTasks):
     if "Authorization" in request.headers and request.headers["Authorization"] == Config.token:
         background_tasks.add_task(ArcaeaAssetsUpdater.unzip_file)
