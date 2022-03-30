@@ -62,7 +62,7 @@ async def _(request: Request):
 
 @app.get("/assets/char/{image_name}")
 async def _(image_name: str):
-    return FileResponse(path.join(songs_dir, char_dir, image_name))
+    return FileResponse(path.join(char_dir, image_name))
 
 
 @app.post("/api/force_update")
