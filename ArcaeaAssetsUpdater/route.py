@@ -37,6 +37,11 @@ async def _(request: Request):
         return json.loads(file.read())
 
 
+@app.get("/api/slst")
+async def _(request: Request):
+    return FileResponse(path.join(songs_dir, "songlist"))
+
+
 @app.get("/api/song_list")
 async def _(request: Request):
     song_dict = dict()
