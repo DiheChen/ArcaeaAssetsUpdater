@@ -54,8 +54,8 @@ class SongList(Base):
     songs: List[Song]
 
 class Data:
-    db = pw.SqliteDatabase(path.abspath(path.join(path.dirname(__file__), "data", "arcong.db")))
-    with open (path.abspath(path.join(path.dirname(__file__), "data", "arcong.json")), "r", encoding="UTF-8") as f:
+    db = pw.SqliteDatabase(path.abspath(path.join(path.dirname(__file__), "data", "arcsong.db")))
+    with open (path.abspath(path.join(path.dirname(__file__), "data", "arcsong.json")), "r", encoding="UTF-8") as f:
         jsons = json.loads(f.read())
         song_list = SongList(**jsons["content"])
 
