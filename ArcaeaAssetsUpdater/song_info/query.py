@@ -13,12 +13,17 @@ def song_alias(song: str):
         return {"status": -5, "message": "invalid songname or songid"}
 
 
-def song_random(start: float, end: float, difficulty: int = 0):
-    result = charts.select().where(
-        (charts.rating >= start * 10)
-        & (end * 10 >= charts.rating)
-        & (charts.rating_class == difficulty)
-    )
+def song_random(start: float, end: float, difficulty: int = -1):
+    if difficulty != -1:
+        result = charts.select().where(
+            (charts.rating >= start * 10)
+            & (end * 10 >= charts.rating)
+            & (charts.rating_class == difficulty)
+        )
+    elif difficulty == -1:
+        result = charts.select().where(
+            (charts.rating >= start * 10)
+            & (end * 10 >= charts.rating))
     return [single_song.make_json(i) for i in result]
 
 

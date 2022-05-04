@@ -1,6 +1,6 @@
-from .._RHelper import RHelper
+from _RHelper import RHelper
 import peewee as pw
-from .schema import SongList
+from song_info.schema import SongList
 import ujson as json
 
 root = RHelper()
