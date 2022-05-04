@@ -7,7 +7,7 @@ from fastapi import FastAPI, Request, BackgroundTasks
 from fastapi.responses import FileResponse
 import ujson as json
 import peewee as pw
-
+from random import choice
 from config import Config
 from assets_updater import ArcaeaAssetsUpdater
 
@@ -166,7 +166,7 @@ async def _(image_name: str):
 
 @app.get("/api/songrandom")
 async def _(start: float, end: float, difficulty: int = 0):
-    return song_random(start, end, difficulty)
+    return choice(song_random(start, end, difficulty))
 
 @app.get("/api/songalias")
 async def _(song: str):
