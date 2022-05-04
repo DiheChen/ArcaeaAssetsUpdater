@@ -1,11 +1,3 @@
-"""
- - Author: DiheChen
- - Date: 2021-08-15 00:13:33
- - LastEditTime: 2021-09-01 21:39:36
- - LastEditors: DiheChen
- - Description: None
- - GitHub: https://github.com/Chendihe4975
-"""
 from os import listdir, path
 from urllib.parse import urljoin
 from urllib.request import pathname2url
@@ -16,6 +8,8 @@ import ujson as json
 
 from config import Config
 from assets_updater import ArcaeaAssetsUpdater
+#from song_info.query import song_random
+from ArcaeaAssetsUpdater.song_info.query import song_random, song_alias
 
 app = FastAPI()
 songs_dir = path.abspath(
@@ -68,6 +62,15 @@ async def _(request: Request):
 @app.get("/assets/char/{image_name}")
 async def _(image_name: str):
     return FileResponse(path.join(char_dir, image_name))
+
+
+@app.get("/api/songrandom")
+async def _(start: float, end: float, difficulty: int = 0):
+    return song_random(start, end, difficulty)
+
+@app.get("/api/songalias")
+async def _(song: str):
+    return song_alias(song)
 
 
 @app.post("/api/force_update")
